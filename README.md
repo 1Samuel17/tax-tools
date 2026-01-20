@@ -1,62 +1,49 @@
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=665539593)
+# Tax-Tools
+---
 
-# Rust template
+- This project is an exercise in developing a personal Rust utility library with useful functions for managing income taxes.
+- It is the final assignment for the course "[Rust Fundamentals](https://www.coursera.org/learn/rust-fundamentals)" taught by Alfredo Deza representing Duke University on the Coursera learning platform.
+- The assignment instructions are as follows:
 
-_This template repository is part of a 4-week Rust course, [start on week 1 here](https://github.com/alfredodeza/rust-setup) if you want to learn more about Rust!_
+> ### External Lab: Create a Rust library
 
-This Rust template is meant to help you get quickly started with a new project. It is [Codespaces enabled](https://docs.github.com/en/codespaces/overview) and it is pre-configured with useful extensions like the [Rust Analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer&WT.mc_id=academic-0000-alfredodeza) and [GitHub Copilot](https://docs.github.com/en/copilot/quickstart)
+    In this lab, you will create a library in Rust to reinforce the concepts covered in the last lesson. You can choose one of the following library ideas, or you are free to create one on your own. You will add code to the lib.rs file, document your code, and utilize tools like Makefile and Cargo. The end result will be a GitHub repository containing the complete code for your chosen library.
 
-This repository is configured as a GitHub Template, so that you can start fresh with a new repository without carrying the history and commits of this repository. To get started you can click on the "Use this template" green button, or follow this [link directly](https://github.com/alfredodeza/rust-template/generate)
+    Learning Objectives:
 
-This is the Rust template used as part of the [Rust Bootcamp](https://s.deza.pe/zjo). There are 4 weeks in total:
+    - Gain experience in creating a library and organizing code in Rust.
 
-- [week 1](https://github.com/alfredodeza/rust-setup) 
-- [week 2](https://github.com/alfredodeza/rust-fundamentals)
-- [week 3](https://github.com/alfredodeza/rust-structs-types-enums/)
-- [week 4](https://github.com/alfredodeza/applied-rust)
-- [Rust Template](https://github.com/alfredodeza/rust-template) 👈 You are here!
-  
+    - Practice documenting code using comments and Rust's documentation conventions.
 
-🚀 **Watch the Video course**
+    - Understand how to use a Makefile to automate build tasks and simplify compilation.
 
-[![O'Reilly](https://learning.oreilly.com/covers/urn:orm:video:28080717VIDEOPAIML/400w/)](https://s.deza.pe/zjo "Rust Bootcamp")
+    - Explore public and private modules in Rust and define appropriate access levels for functions.
 
-## Get started
+    Steps:
 
-To get started with this template, once you've [generated the repository](https://github.com/alfredodeza/rust-template/generate), run the following `cargo` command (replace my-project with the name of your project):
+    1. Create a new repository in your account for your Rust library project. You can also use the Rust template repository to quickly generate the scaffolding for your project in your own account.
 
-```bash
-cargo init --name my-project .
-```
+    2. Use the example code used for this week as a starting point
 
-This will initialize the project with the name you provided. You can now start editing the `src/main.rs` file and start building your project.
+    3. Use one of the library ideas below or implement one from your own
 
-## Make changes
+    Bonus: Try publishing your documented library to crates.io so that you can share it with others as a crate.
 
-Make changes to this repository so that it reflects your own project. Start by updating the license which is currently set to MIT. You can do this by editing the `LICENSE` file. You can also update the `README.md` file to reflect a descriptiton of your own project.
+---
 
-## GitHub Actions
+> ### Project Purpose
 
-This template comes with a GitHub Actions workflow that will run on every push to the repository. The workflow will run `cargo build` and `cargo test` to make sure that your project builds and that all tests pass. You can find the workflow file in `.github/workflows/rust.yml`
+I chose to create a library that was personally relevant and useful to me -- specifically,  calculating income taxes on hypothetical income scenarios in order to calculate required income, and hours to cover expenses and desirable financial cushion.
 
-## GitHub Codespaces
+---
 
-This template is [Codespaces enabled](https://docs.github.com/en/codespaces/overview). This means that you can start a new Codespace from this repository and start working on your project right away. To do this, click on the green "Code" button and select "Open with Codespaces". This will start a new Codespace for you and you can start editing the `src/main.rs` file right away.
+#### Example Calculations:
 
-## Resources
+- Given a list of monthly expenses, how much should be earned hourly @ 40hrs/week (no overtime) to cover those expenses with at least $500 left for the month (not accounting for taxes)
 
-This template repository is part of a 4-week Rust course, [start on week 1 here](https://github.com/alfredodeza/rust-setup) if you want to learn more about Rust!
+- Given a list of monthly expenses, how much should be earned hourly @ 40hrs/week (no overtime) to cover those expenses with at least $500 left for the month (accounting for standard tax withholding)
 
-**O'Reilly Courses**
+- Given a gross annual salary and a list of elected deductions, what would the net income be after taxes and deductions?
 
-- [DevOps command-line tools in Python and Rust](https://learning.oreilly.com/videos/devops-command-line-tools/28037639VIDEOPAIML/)
 
-**Coursera Courses**
-
-- [MLOps Machine Learning Operations Specialization](https://www.coursera.org/specializations/mlops-machine-learning-duke)
-- [Linux and Bash for Data Engineering](https://www.coursera.org/learn/linux-and-bash-for-data-engineering-duke)
-- [Open Source Platforms for MLOps](https://www.coursera.org/learn/open-source-platforms-duke)
-- [Python Essentials for MLOps](https://www.coursera.org/learn/python-essentials-mlops-duke)
-- [Web Applications and Command-Line tools for Data Engineering](https://www.coursera.org/learn/web-app-command-line-tools-for-data-engineering-duke)
-- [Python and Pandas for Data Engineering](https://www.coursera.org/learn/python-and-pandas-for-data-engineering-duke)
-- [Scripting with Python and SQL for Data Engineering](https://www.coursera.org/learn/scripting-with-python-sql-for-data-engineering-duke)
+> ### See the Documentation
