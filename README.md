@@ -33,7 +33,7 @@
 
 > ### Project Purpose
 
-I chose to create a library that was personally relevant and useful to me -- specifically,  calculating income taxes on hypothetical income scenarios in order to calculate required income, and hours to cover expenses and desirable financial cushion.
+I chose to create a library that was personally relevant and useful to me -- specifically, a library that contains utility functions for calculating net income, necessary hours, elected deductions, and standard tax withholding given a hypothetical set of expenses and a hypothetical hourly wage or salary scenario. The idea is pretty much like the "Sample Paycheck" tool found in the [Paycom](https://www.paycom.com/software/employee-self-service/) employee portal, but aimed at having more functionality and customization.
 
 ---
 
