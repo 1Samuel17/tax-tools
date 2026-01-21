@@ -1,6 +1,7 @@
 /// Module for handling payroll deductions other than taxes.
 
 
+// standard payroll deduction categories per pay period (default 2 pay periods per month)
 pub enum PayrollDeduction {
     Medical(Option<f32>), // health insurance (fixed amount)
     Dental(Option<f32>), // health insurance (fixed amount)
@@ -17,7 +18,7 @@ pub enum PayrollDeduction {
 
 
 pub struct PayrollDeductions {
-    pub deductions: Vec<PayrollDeduction>
+    pub deductions: Vec<PayrollDeduction>,
 }
 
 impl PayrollDeductions {

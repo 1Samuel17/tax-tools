@@ -38,8 +38,4 @@ impl Expenses {
             }
         }).sum()
     }
-
-    pub fn total_annual_expenses(&self) -> f32 {
-        self.total_monthly_expenses() * 12.0
-    }
 }
