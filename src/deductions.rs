@@ -2,7 +2,7 @@
 
 
 // standard payroll deduction categories per pay period (default 2 pay periods per month)
-pub enum PayrollDeduction {
+pub enum PaycheckDeduction {
     Medical(Option<f32>), // health insurance (fixed amount)
     Dental(Option<f32>), // health insurance (fixed amount)
     Vision(Option<f32>), // health insurance (fixed amount)
@@ -17,25 +17,25 @@ pub enum PayrollDeduction {
 }
 
 
-pub struct PayrollDeductions {
-    pub deductions: Vec<PayrollDeduction>,
+pub struct PaycheckDeductions {
+    pub deductions: Vec<PaycheckDeduction>,
 }
 
-impl PayrollDeductions {
-    pub fn total_payroll_deductions(&self) -> f32 {
+impl PaycheckDeductions {
+    pub fn total_paycheck_deductions(&self) -> f32 {
         self.deductions.iter().map(|deduction| {
             match deduction {
-                PayrollDeduction::Medical(amount) |
-                PayrollDeduction::Dental(amount) |
-                PayrollDeduction::Vision(amount) |
-                PayrollDeduction::HSA(amount) |
-                PayrollDeduction::FSA(amount) |
-                PayrollDeduction::VoluntaryADD(amount) |
-                PayrollDeduction::VoluntaryLife(amount) |
-                PayrollDeduction::VoluntaryLTD(amount) |
-                PayrollDeduction::VoluntarySTD(amount) => amount.unwrap_or(0.0),
-                PayrollDeduction::Retirement401k(percentage) |
-                PayrollDeduction::RetirementRoth401k(percentage) => {
+                PaycheckDeduction::Medical(amount) |
+                PaycheckDeduction::Dental(amount) |
+                PaycheckDeduction::Vision(amount) |
+                PaycheckDeduction::HSA(amount) |
+                PaycheckDeduction::FSA(amount) |
+                PaycheckDeduction::VoluntaryADD(amount) |
+                PaycheckDeduction::VoluntaryLife(amount) |
+                PaycheckDeduction::VoluntaryLTD(amount) |
+                PaycheckDeduction::VoluntarySTD(amount) => amount.unwrap_or(0.0),
+                PaycheckDeduction::Retirement401k(percentage) |
+                PaycheckDeduction::RetirementRoth401k(percentage) => {
                     // For percentage-based deductions, we would need the gross income to calculate the actual amount.
                     // Here we return 0.0 as a placeholder.
                     0.0
