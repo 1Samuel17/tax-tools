@@ -32,7 +32,7 @@ impl Income {
     pub fn gross_income_per_pay_period(&self) -> f32 {
         match self.income_type {
             IncomeType::Salary(salary) => {
-                Income::round_2_decimals((salary / PAY_PERIODS_PER_YEAR))
+                Income::round_2_decimals(salary / PAY_PERIODS_PER_YEAR)
             },
             IncomeType::Hourly(rate) => {
                 self.determine_gross_income(rate) * PAY_PERIOD
@@ -45,7 +45,7 @@ impl Income {
         match self.income_type {
             IncomeType::Salary(salary) => {Income::round_2_decimals(salary / MONTHS_PER_YEAR)},
             IncomeType::Hourly(rate) => {
-                self.determine_gross_income(rate) * WEEKS_PER_MONTH
+                self.determine_gross_income(rate) * PAY_PERIODS_PER_MONTH
             }
         }
     }
@@ -66,13 +66,20 @@ impl Income {
 
     pub fn determine_gross_income(&self, rate: f32) -> f32 {
 
-        let regular_hours = if self.hours_per_week.unwrap() > STANDARD_HOURS_PER_WEEK {STANDARD_HOURS_PER_WEEK}
-        else {self.hours_per_week.unwrap()};
+        let regular_hours = 
+            if self.hours_per_week.unwrap() > STANDARD_HOURS_PER_WEEK {
+                STANDARD_HOURS_PER_WEEK
+            }
+            else {self.hours_per_week.unwrap()};
 
-        let overtime_hours = if self.hours_per_week.unwrap() > STANDARD_HOURS_PER_WEEK {self.hours_per_week.unwrap() - STANDARD_HOURS_PER_WEEK}
-        else {0.0};
+        let overtime_hours = 
+            if self.hours_per_week.unwrap() > STANDARD_HOURS_PER_WEEK {
+                self.hours_per_week.unwrap() - STANDARD_HOURS_PER_WEEK
+            }
+            else {0.0};
         
         let gross_income = (regular_hours * rate) + (overtime_hours * rate * OVERTIME_MULTIPLIER);
+
         Income::round_2_decimals(gross_income)
     }
 }
