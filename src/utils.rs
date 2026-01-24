@@ -3,10 +3,12 @@
 
 // time related constants
 pub const WEEKS_PER_YEAR: f32 = 52.0; // potential working weeks in a year
+pub const PAY_PERIODS_PER_YEAR: f32 = 26.0; // bi-weekly pay periods in a year
 pub const MONTHS_PER_YEAR: f32 = 12.0; // months in a year
 pub const STANDARD_HOURS_PER_WEEK: f32 = 40.0; // standard full-time hours per week
 pub const OVERTIME_MULTIPLIER: f32 = 1.5; // time and a half
 pub const PAY_PERIOD: f32 = 2.0; // 2 week pay periods
+pub const PAY_PERIODS_PER_MONTH: f32 = 2.0; // pay periods in a month;
 // possibly incorporate this in future versions to account for no overtime during paid time off
 // pub const PAID_TIME_OFF_WEEKS_PER_YEAR: f32 = 3.0; // overtime not possible during PTO
 

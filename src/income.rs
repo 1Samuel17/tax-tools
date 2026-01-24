@@ -1,7 +1,6 @@
-/// Module for handling income calculations
-/// This module provides structures and functions to calculate gross income based on hourly wage or salary,
-/// including considerations for overtime and paid time off.
-/// It also includes utility functions to convert between hourly rates and annual salaries.
+/// Module for handling paycheck income calculations
+/// This module 
+
 
 use crate::utils::*;
 
@@ -24,10 +23,7 @@ impl Income {
                 Income::round_2_decimals(salary / WEEKS_PER_YEAR)
             },
             IncomeType::Hourly(rate) => {
-                let regular_hours = self.determine_regular_hours();
-                let overtime_hours = self.determine_overtime_hours();
-                let gross_income = self.determine_income(regular_hours, overtime_hours, rate);
-                Income::round_2_decimals(gross_income)
+                self.determine_gross_income(rate)
             },
         }
     }
@@ -36,13 +32,10 @@ impl Income {
     pub fn gross_income_per_pay_period(&self) -> f32 {
         match self.income_type {
             IncomeType::Salary(salary) => {
-                Income::round_2_decimals((salary / WEEKS_PER_YEAR) * PAY_PERIOD)
+                Income::round_2_decimals((salary / PAY_PERIODS_PER_YEAR))
             },
             IncomeType::Hourly(rate) => {
-                let regular_hours = self.determine_regular_hours();
-                let overtime_hours = self.determine_overtime_hours();
-                let gross_income = self.determine_income(regular_hours, overtime_hours, rate) * PAY_PERIOD;
-                Income::round_2_decimals(gross_income)
+                self.determine_gross_income(rate) * PAY_PERIOD
             },
         }
     }
@@ -52,10 +45,7 @@ impl Income {
         match self.income_type {
             IncomeType::Salary(salary) => {Income::round_2_decimals(salary / MONTHS_PER_YEAR)},
             IncomeType::Hourly(rate) => {
-                let regular_hours = self.determine_regular_hours();
-                let overtime_hours = self.determine_overtime_hours();
-                let gross_income = self.determine_income(regular_hours, overtime_hours, rate) * WEEKS_PER_YEAR / MONTHS_PER_YEAR;
-                Income::round_2_decimals(gross_income)
+                self.gross_income_per_pay_period() *PAY_PERIODS_PER_MONTH
             }
         }
     }
@@ -69,19 +59,18 @@ impl Income {
     }
 
     // helper functions
-    pub fn determine_regular_hours(&self) -> f32 {
-        if self.hours_per_week.unwrap() > STANDARD_HOURS_PER_WEEK {STANDARD_HOURS_PER_WEEK as f32}
-        else {self.hours_per_week.unwrap() as f32}
-    }
-    pub fn determine_overtime_hours(&self) -> f32 {
-        if self.hours_per_week.unwrap() > STANDARD_HOURS_PER_WEEK {(self.hours_per_week.unwrap() - STANDARD_HOURS_PER_WEEK) as f32}
-        else {0.0}
-    }
-    pub fn determine_income(&self, regular_hours: f32, overtime_hours: f32, rate: f32) -> f32 {
-        (regular_hours * rate) + (overtime_hours as f32 * rate * OVERTIME_MULTIPLIER) as f32
     }
     pub fn round_2_decimals(value: f32) -> f32 {
         (value * 100.0).round() / 100.0
+    }
+
+    pub fn determine_gross_income(&self, rate: f32) -> f32 {
+        let regular_hours = if self.hours_per_week.unwrap() > STANDARD_HOURS_PER_WEEK {STANDARD_HOURS_PER_WEEK}
+        else {self.hours_per_week.unwrap()};
+        let overtime_hours = if self.hours_per_week.unwrap() > STANDARD_HOURS_PER_WEEK {self.hours_per_week.unwrap() - STANDARD_HOURS_PER_WEEK}
+        else {0.0};
+        let gross_income = (regular_hours * rate) + (overtime_hours * rate * OVERTIME_MULTIPLIER);
+        Income::round_2_decimals(gross_income)
     }
 }
 

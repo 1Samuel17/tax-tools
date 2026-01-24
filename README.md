@@ -3,7 +3,7 @@
 
 (a work in progress)
 
-- This project is an exercise in developing a personal Rust utility library with useful functions for managing income taxes.
+- This project is an exercise in developing a personal Rust utility library with useful functions for managing paycheck income.
 - It is the final assignment for the course "[Rust Fundamentals](https://www.coursera.org/learn/rust-fundamentals)" taught by Alfredo Deza representing Duke University on the Coursera learning platform.
 - The assignment instructions are as follows:
 
