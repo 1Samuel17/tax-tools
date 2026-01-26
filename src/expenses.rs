@@ -22,6 +22,12 @@ pub struct Expenses {
 }
 
 impl Expenses {
+    pub fn new(expenses: Vec<Expense>) -> Self {
+        Expenses {
+            expense_items: expenses
+        }
+    }
+
     pub fn total_monthly_expenses(&self) -> f32 {
         self.expense_items.iter().map(|expense| {
             match expense {

@@ -9,6 +9,7 @@ pub const OVERTIME_MULTIPLIER: f32 = 1.5; // time and a half
 // pub const PAID_TIME_OFF_WEEKS_PER_YEAR: f32 = 3.0; // possible future integration of overtime not possible during PTO
 
 // 2026 filing status with standard deduction as associated value
+#[derive(Debug, Clone, Copy)]
 pub enum FilingStatus {
     Single, 
     MarriedFilingJointly, // for future implementation

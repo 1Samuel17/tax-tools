@@ -25,7 +25,7 @@ pub fn determine_gross_paycheck(rate: f32, hours_per_week: f32) -> f32 {
 }
 
 // helper functions
-fn round_2_decimals(value: f32) -> f32 {
+pub fn round_2_decimals(value: f32) -> f32 {
     (value * 100.0).round() / 100.0
 }
 
