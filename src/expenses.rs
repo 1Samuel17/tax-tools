@@ -39,3 +39,30 @@ impl Expenses {
         }).sum()
     }
 }
+
+
+// UNIT TESTS FOR EXPENSES MODULE
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn test_total_monthly_expenses() {
+        let expenses = Expenses {
+            expense_items: vec![
+                Expense::Housing(Some(2200.0)),
+                Expense::Energy(Some(250.0)),
+                Expense::Water(Some(50.0)),
+                Expense::Gas(None),
+                Expense::Internet(Some(60.0)),
+                Expense::Phone(Some(80.0)),
+                Expense::Vehicle(Some(300.0)),
+                Expense::VehicleInsurance(Some(150.0)),
+                Expense::VehicleGas(Some(120.0)),
+                Expense::Groceries(Some(400.0)),
+            ],
+        };
+        let total = expenses.total_monthly_expenses();
+        assert_eq!(total, 3610.0);
+    }
+}
