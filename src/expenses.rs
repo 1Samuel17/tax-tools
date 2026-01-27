@@ -38,6 +38,8 @@ pub enum Expense {
 /// * `total_monthly_expenses(&self) -> f32` - Calculates the total of all monthly expenses, treating None values as zero.
 /// # Example
 /// ```
+/// use paycheck_utils::expenses::{Expense, Expenses};
+/// 
 /// let expenses = Expenses::new(vec![
 ///     Expense::Housing(Some(2000.0)),
 ///     Expense::Energy(Some(150.0)),

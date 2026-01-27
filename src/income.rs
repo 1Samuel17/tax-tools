@@ -11,6 +11,9 @@ use crate::utils::*;
 /// * `f32` - gross bi-weekly paycheck amount rounded to 2 decimal places
 /// # Example
 /// ```
+/// use paycheck_utils::income::determine_gross_paycheck;
+/// use paycheck_utils::round_2_decimals;
+/// 
 /// let gross_paycheck = determine_gross_paycheck(20.0, 45.0);
 /// assert_eq!(gross_paycheck, 1900.00);
 /// ```
@@ -44,6 +47,8 @@ pub fn determine_gross_paycheck(rate: f32, hours_per_week: f32) -> f32 {
 /// * `f32` - rounded value to 2 decimal places
 /// # Example
 /// ```
+/// use paycheck_utils::income::round_2_decimals;
+/// 
 /// let rounded_value = round_2_decimals(123.4567);
 /// assert_eq!(rounded_value, 123.46);
 /// ```

@@ -13,6 +13,9 @@ use crate::income::round_2_decimals;
 /// * Estimated federal tax withholding for the paycheck
 /// # Example
 /// ```
+/// use paycheck_utils::FilingStatus;
+/// use paycheck_utils::withholdings::estimate_paycheck_federal_withholdings;
+/// 
 /// let gross_paycheck = 2000.0;
 /// let filing_status = FilingStatus::Single;
 /// let federal_withholding = estimate_paycheck_federal_withholdings(gross_paycheck, filing_status);

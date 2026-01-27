@@ -33,6 +33,13 @@ pub use crate::utils::*;
 /// 
 /// # Example
 /// ```
+/// use paycheck_utils::FilingStatus;
+/// use paycheck_utils::EmploymentScenario;
+/// use paycheck_utils::PreTaxDeductions;
+/// use paycheck_utils::PreTaxDeduction;
+/// use paycheck_utils::PostTaxDeductions;
+/// use paycheck_utils::PostTaxDeduction;
+/// 
 /// let new_job_scenario = EmploymentScenario::new(
 ///     30.0, // hourly rate
 ///     40.0, // hours per week
