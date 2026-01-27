@@ -4,7 +4,7 @@
 (a work in progress)
 
 - This project is an exercise in developing a personal Rust utility library with useful functions for managing paycheck income.
-- It is the final assignment for the course "[Rust Fundamentals](https://www.coursera.org/learn/rust-fundamentals)" taught by Alfredo Deza representing Duke University on the Coursera learning platform.
+- It is the final assignment for the course "[Rust Fundamentals](https://www.coursera.org/learn/rust-fundamentals)" taught by [Alfredo Deza](https://www.linkedin.com/in/alfredodeza/) representing Duke University on the Coursera learning platform.
 - The assignment instructions are as follows:
 
 > ### External Lab: Create a Rust library
@@ -34,24 +34,16 @@ Bonus: Try publishing your documented library to crates.io so that you can share
 
 ---
 
-> ### Project Purpose
+> ### My Library Project 
 
 I chose to create a library that was personally relevant and useful to me -- specifically, a library that contains utility functions for estimating paycheck withholdings and net income in order to compare against a given set of living expenses. The idea is similar to the "Sample Paycheck" tool found in the [Paycom](https://www.paycom.com/software/employee-self-service/) employee portal, but aimed at having a little more flexibility.
 
 The primary question this library aims to answer is: "Given an hourly wage and number of hours worked per week, what would my net paycheck be after taxes and deductions?"
 
-The secondary question this library will aim to answer is: "Given a total monthly expenses amount and hourly wage, how many hours would I need to work to cover my expenses with "x" amount left over after taxes and deductions?" (this will be implemented in a future version).
-
----
-
-#### Example Calculations:
-
-- TODO: give example here
-
 ---
 
 ####  * A Note on Copilot usage *
 
-Copilot is initially paused for a duration of 30 mins when I first begin a task to allow me time to think through the solution on my own and try to implement the ideas and features I have in mind. If I cannot seem to come up with a solution in 30 mins, I begin to allow Copilot to offer suggestions and then determine if it fits what I am trying to accomplish. If I do not understand the code offered by Copilot, I ask for an explanation of what it's doing. Copilot does not always know what I am trying to do. For example, the modules and key words I have used in this library make Copilot think I am trying to create a library for filing taxes at tax season, but the library is intended to help calculate payroll taxes, deductions, and income/expenses -- not federal income taxes, deductions and income/expenses as filed during tax season.
+Copilot is initially paused to allow me time to think through the solution on my own to try to implement the ideas and features I have in mind. If I cannot seem to come up with a solution in 30-45 mins, I begin to allow Copilot offer suggestions to determine if it fits what I am trying to accomplish. If I do not understand the code offered by Copilot, I ask for an explanation of what it's doing and decide to keep it or not. Copilot does not always know what I am trying to do. For example, the modules and key words I have used in this library make Copilot think I am trying to create a library for filing taxes at tax season, but the library is intended to help calculate paycheck income, deductions, and taxes -- not federal income taxes, deductions and income/expenses as filed during tax season.
 
 > ### See the Documentation
