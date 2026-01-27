@@ -46,4 +46,6 @@ The primary question this library aims to answer is: "Given an hourly wage and n
 
 Copilot is initially paused to allow me time to think through the solution on my own to try to implement the ideas and features I have in mind. If I cannot seem to come up with a solution in 30-45 mins, I begin to allow Copilot offer suggestions to determine if it fits what I am trying to accomplish. If I do not understand the code offered by Copilot, I ask for an explanation of what it's doing and decide to keep it or not. Copilot does not always know what I am trying to do. For example, the modules and key words I have used in this library make Copilot think I am trying to create a library for filing taxes at tax season, but the library is intended to help calculate paycheck income, deductions, and taxes -- not federal income taxes, deductions and income/expenses as filed during tax season.
 
-> ### See the [Documentation](https://docs.rs/paycheck-utils/latest/paycheck_utils/index.html)
+> ### Install the [Crate](https://crates.io/crates/paycheck-utils)
+
+> ### Read the [Documentation](https://docs.rs/paycheck-utils/latest/paycheck_utils/index.html)
