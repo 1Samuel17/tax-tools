@@ -9,7 +9,7 @@
 //! The library is structured into several modules:
 //! - `withholdings`: Contains functions to estimate federal tax withholdings, Social Security, and Medicare deductions.
 //! - `deductions`: Defines structures and functions for handling pre-tax and post-tax deductions.
-//! - `income`: Contains functions to calculate gross income based on hourly wage and hours worked.
+//! - `income`: Contains functions to calculate gross paycheck based on hourly wage and hours worked.
 //! - `expenses`: Defines structures and functions for managing monthly expenses.
 //! - `utils`: Contains tax and time related constants necessary for calculations.
 //! 

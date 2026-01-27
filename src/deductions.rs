@@ -1,6 +1,7 @@
-/// Module for handling payroll deductions other than federal tax withholdings.
+//! Module for handling paycheck deductions.
+//! Defines structures and functions for managing pre-tax and post-tax deductions.
 
-
+/// Pre-tax deductions are applied before federal tax calculations.
 pub enum PreTaxDeduction {
     Medical (Option<f32>),
     Dental (Option<f32>),
@@ -12,6 +13,7 @@ pub enum PreTaxDeduction {
 
 }
 
+/// Post-tax deductions are applied after federal tax calculations
 pub enum PostTaxDeduction {
     Roth401K (Option<f32>),
     VoluntaryLife (Option<f32>),
@@ -22,29 +24,35 @@ pub enum PostTaxDeduction {
 
 }
 
+/// Struct to manage a collection of pre-tax deductions
 pub struct PreTaxDeductions {
     pretax_deductions: Vec<PreTaxDeduction>
 }
 
+/// Struct to manage a collection of post-tax deductions
 pub struct PostTaxDeductions {
     posttax_deductions: Vec<PostTaxDeduction>
 }
 
 impl PreTaxDeductions {
+    /// Create a new collection of pre-tax deductions
     pub fn new(deductions: Vec<PreTaxDeduction>) -> Self {
         PreTaxDeductions {
             pretax_deductions: deductions
         }
     }
 
+    /// Add multiple pre-tax deductions to the collection
     pub fn add_pretax_deductions(&mut self, deductions: Vec<PreTaxDeduction>) {
         self.pretax_deductions.extend(deductions);
     }
 
+    /// Get a reference to the list of pre-tax deductions
     pub fn get_pretax_deductions(&self) -> &Vec<PreTaxDeduction> {
         &self.pretax_deductions
     }
 
+    /// Calculate the total amount of pre-tax deductions
     pub fn total_pretax_deductions(&self) -> f32 {
         self.pretax_deductions.iter().fold(0.0, |acc, deduction| {
             match deduction {
@@ -63,20 +71,24 @@ impl PreTaxDeductions {
 }
 
 impl PostTaxDeductions {
+    /// Create a new collection of post-tax deductions
     pub fn new(deductions: Vec<PostTaxDeduction>) -> Self {
         PostTaxDeductions {
             posttax_deductions: deductions
         }
     }
 
+    /// Add multiple post-tax deductions to the collection
     pub fn add_posttax_deductions(&mut self, deductions: Vec<PostTaxDeduction>) {
         self.posttax_deductions.extend(deductions);
     }
 
+    /// Get a reference to the list of post-tax deductions
     pub fn get_posttax_deductions(&self) -> &Vec<PostTaxDeduction> {
             &self.posttax_deductions
     }
 
+    /// Calculate the total amount of post-tax deductions
     pub fn total_posttax_deductions(&self) -> f32 {
         self.posttax_deductions.iter().fold(0.0, |acc, deduction| {
             match deduction {

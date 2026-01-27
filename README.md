@@ -38,11 +38,15 @@ Bonus: Try publishing your documented library to crates.io so that you can share
 
 I chose to create a library that was personally relevant and useful to me -- specifically, a library that contains utility functions for estimating paycheck withholdings and net income in order to compare against a given set of living expenses. The idea is similar to the "Sample Paycheck" tool found in the [Paycom](https://www.paycom.com/software/employee-self-service/) employee portal, but aimed at having a little more flexibility.
 
+The primary question this library aims to answer is: "Given an hourly wage and number of hours worked per week, what would my net paycheck be after taxes and deductions?"
+
+The secondary question this library will aim to answer is: "Given a total monthly expenses amount and hourly wage, how many hours would I need to work to cover my expenses with "x" amount left over after taxes and deductions?" (this will be implemented in a future version).
+
 ---
 
 #### Example Calculations:
 
-- Given a list of monthly expenses and a list of elected payroll deductions, if I work [n] hours per week at a rate of [m] dollars per hour, would my net monthly income be enough to cover the expenses with at least $500 left over.
+- TODO: give example here
 
 ---
 

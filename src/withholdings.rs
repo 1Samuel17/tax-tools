@@ -1,13 +1,27 @@
-// module for handling estimated federal paycheck withholdings using the method outlined by the IRS in Publication 15T (2026) (percentage method)
+//! Module for estimating various paycheck withholdings based on gross pay and filing status.
+//! Uses IRS guidelines for the year 2026, focusing on single filer status.
+//! Future implementation plans exist for other filing statuses.
 
 use crate::utils::*;
 use crate::income::round_2_decimals;
 
-// 1. annualize paycheck
-// 2. adjust for w4 deductions and credits
-// 3. apply tax brackets
-// 4. convert back to per-paycheck
-
+/// Estimate federal tax withholding for a single paycheck based on gross paycheck and filing status
+/// # Arguments
+/// * `gross_paycheck` - The gross amount of the paycheck
+/// * `filing_status` - The filing status of the individual (e.g., Single)
+/// # Returns
+/// * Estimated federal tax withholding for the paycheck
+/// # Example
+/// ```
+/// let gross_paycheck = 2000.0;
+/// let filing_status = FilingStatus::Single;
+/// let federal_withholding = estimate_paycheck_federal_withholdings(gross_paycheck, filing_status);
+/// println!("Estimated Federal Withholding: ${}", federal_withholding);
+/// ```
+/// # Notes
+/// This function annualizes the gross paycheck, applies the standard deduction based on filing status,
+/// and calculates the estimated federal tax using the 2026 tax brackets. The result is then
+/// converted back to a per-paycheck amount.
 pub fn estimate_paycheck_federal_withholdings(gross_paycheck: f32, filing_status: FilingStatus) -> f32 {
     
     let gross_annualized_paycheck = gross_paycheck * PAY_PERIODS_PER_YEAR;
@@ -27,6 +41,7 @@ pub fn estimate_paycheck_federal_withholdings(gross_paycheck: f32, filing_status
     round_2_decimals(estimated_annual_withholdings / PAY_PERIODS_PER_YEAR) // estimated per-paycheck federal withholding
 }
 
+/// Apply 2026 federal tax brackets for single filers to the adjusted annualized paycheck
 fn apply_tax_brackets(adjusted_annualized_paycheck: f32) -> f32 {
 
     if adjusted_annualized_paycheck > SINGLE_BRACKET_6_THRESHOLD {
@@ -53,10 +68,12 @@ fn apply_tax_brackets(adjusted_annualized_paycheck: f32) -> f32 {
     
 }
 
+/// Estimate Social Security tax withholding for a single paycheck
 pub fn estimate_social_security_withholding(gross_paycheck: f32) -> f32 {
     gross_paycheck * SOCIAL_SECURITY_RATE
 }
 
+/// Estimate Medicare tax withholding for a single paycheck
 pub fn estimate_medicare_withholding(gross_paycheck: f32) -> f32 {
     gross_paycheck * MEDICARE_RATE
 }
