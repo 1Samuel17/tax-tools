@@ -13,7 +13,7 @@ use crate::utils::*;
 /// ```
 /// use paycheck_utils::income::determine_gross_paycheck;
 /// use paycheck_utils::round_2_decimals;
-/// 
+///
 /// let gross_paycheck = determine_gross_paycheck(20.0, 45.0);
 /// assert_eq!(gross_paycheck, 1900.00);
 /// ```
@@ -22,20 +22,20 @@ use crate::utils::*;
 /// * Standard hours are capped at 40 hours per week for regular pay calculation
 /// * Bi-weekly paycheck is calculated over 2 week pay periods
 pub fn determine_gross_paycheck(rate: f32, hours_per_week: f32) -> f32 {
+    let regular_hours = if hours_per_week > STANDARD_HOURS_PER_WEEK {
+        STANDARD_HOURS_PER_WEEK
+    } else {
+        hours_per_week
+    };
 
-    let regular_hours = 
-        if hours_per_week > STANDARD_HOURS_PER_WEEK {
-            STANDARD_HOURS_PER_WEEK
-        }
-        else {hours_per_week};
+    let overtime_hours = if hours_per_week > STANDARD_HOURS_PER_WEEK {
+        hours_per_week - STANDARD_HOURS_PER_WEEK
+    } else {
+        0.0
+    };
 
-    let overtime_hours = 
-        if hours_per_week > STANDARD_HOURS_PER_WEEK {
-            hours_per_week - STANDARD_HOURS_PER_WEEK
-        }
-        else {0.0};
-    
-    let gross_paycheck = ((regular_hours * rate) + (overtime_hours * (rate * OVERTIME_MULTIPLIER))) * PAY_PERIOD;
+    let gross_paycheck =
+        ((regular_hours * rate) + (overtime_hours * (rate * OVERTIME_MULTIPLIER))) * PAY_PERIOD;
 
     round_2_decimals(gross_paycheck)
 }
@@ -48,17 +48,16 @@ pub fn determine_gross_paycheck(rate: f32, hours_per_week: f32) -> f32 {
 /// # Example
 /// ```
 /// use paycheck_utils::income::round_2_decimals;
-/// 
+///
 /// let rounded_value = round_2_decimals(123.4567);
 /// assert_eq!(rounded_value, 123.46);
 /// ```
 /// # Notes
 /// * Uses standard rounding rules
-/// 
+///
 pub fn round_2_decimals(value: f32) -> f32 {
     (value * 100.0).round() / 100.0
 }
-
 
 // UNIT TESTS FOR INCOME MODULE
 

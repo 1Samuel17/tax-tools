@@ -1,7 +1,6 @@
 //! Module for handling expense calculations.
 //! Defines common standard expense categories and functions for totaling monthly expenses.
 
-
 /// Common expense categories for monthly expenses.
 /// Each variant can hold an optional f32 value representing the monthly expense amount.
 /// If no amount is provided, it is treated as zero in calculations.
@@ -17,16 +16,16 @@
 /// * `VehicleGas(Option<f32>)` - Monthly vehicle gas expense
 /// * `Groceries(Option<f32>)` - Monthly groceries expense
 pub enum Expense {
-    Housing(Option<f32>), // monthly rent or mortgage expense
-    Energy(Option<f32>), // monthly energy expense
-    Water(Option<f32>), // monthly water expense
-    Gas(Option<f32>), // monthly gas expense
-    Internet(Option<f32>), // monthly internet expense
-    Phone(Option<f32>), // monthly phone expense
-    Vehicle(Option<f32>), // monthly vehicle expense
+    Housing(Option<f32>),          // monthly rent or mortgage expense
+    Energy(Option<f32>),           // monthly energy expense
+    Water(Option<f32>),            // monthly water expense
+    Gas(Option<f32>),              // monthly gas expense
+    Internet(Option<f32>),         // monthly internet expense
+    Phone(Option<f32>),            // monthly phone expense
+    Vehicle(Option<f32>),          // monthly vehicle expense
     VehicleInsurance(Option<f32>), // monthly insurance expense
-    VehicleGas(Option<f32>), // monthly vehicle gas expense
-    Groceries(Option<f32>), // monthly groceries expense
+    VehicleGas(Option<f32>),       // monthly vehicle gas expense
+    Groceries(Option<f32>),        // monthly groceries expense
 }
 
 /// Struct to hold a collection of monthly expenses.
@@ -39,7 +38,7 @@ pub enum Expense {
 /// # Example
 /// ```
 /// use paycheck_utils::expenses::{Expense, Expenses};
-/// 
+///
 /// let expenses = Expenses::new(vec![
 ///     Expense::Housing(Some(2000.0)),
 ///     Expense::Energy(Some(150.0)),
@@ -61,28 +60,28 @@ pub struct Expenses {
 impl Expenses {
     pub fn new(expenses: Vec<Expense>) -> Self {
         Expenses {
-            expense_items: expenses
+            expense_items: expenses,
         }
     }
 
     pub fn total_monthly_expenses(&self) -> f32 {
-        self.expense_items.iter().map(|expense| {
-            match expense {
-                Expense::Housing(amount) |
-                Expense::Energy(amount) |
-                Expense::Water(amount) |
-                Expense::Gas(amount) |
-                Expense::Internet(amount) |
-                Expense::Phone(amount) |
-                Expense::Vehicle(amount) |
-                Expense::VehicleInsurance(amount) |
-                Expense::VehicleGas(amount) |
-                Expense::Groceries(amount) => amount.unwrap_or(0.0),
-            }
-        }).sum()
+        self.expense_items
+            .iter()
+            .map(|expense| match expense {
+                Expense::Housing(amount)
+                | Expense::Energy(amount)
+                | Expense::Water(amount)
+                | Expense::Gas(amount)
+                | Expense::Internet(amount)
+                | Expense::Phone(amount)
+                | Expense::Vehicle(amount)
+                | Expense::VehicleInsurance(amount)
+                | Expense::VehicleGas(amount)
+                | Expense::Groceries(amount) => amount.unwrap_or(0.0),
+            })
+            .sum()
     }
 }
-
 
 // UNIT TESTS FOR EXPENSES MODULE
 

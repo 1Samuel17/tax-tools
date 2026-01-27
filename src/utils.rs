@@ -18,10 +18,10 @@ pub const OVERTIME_MULTIPLIER: f32 = 1.5;
 /// 2026 filing statuses
 #[derive(Debug, Clone, Copy)]
 pub enum FilingStatus {
-    Single, 
-    MarriedFilingJointly, // for future implementation
+    Single,
+    MarriedFilingJointly,  // for future implementation
     MarriedFilingSeparate, // for future implementation
-    HeadOfHousehold, // for future implementation
+    HeadOfHousehold,       // for future implementation
 }
 
 /// 2026 standard deduction for single filer: $16,100 (source: irs.gov)
@@ -98,7 +98,6 @@ pub const SINGLE_BRACKET_6_BASE_TAX: f32 = 58448.00;
 
 /// 2026 single filer tax bracket 7 base tax amount: $192,979.25 (source: irs.gov)
 pub const SINGLE_BRACKET_7_BASE_TAX: f32 = 192979.25;
-
 
 // FUTURE IMPLEMENTATION OF OTHER FILING STATUS TAX BRACKETS
 
