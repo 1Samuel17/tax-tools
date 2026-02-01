@@ -58,6 +58,7 @@ pub struct EmploymentScenario {
     pub filing_status: FilingStatus,
     pub pretax_deductions: PreTaxDeductions,
     pub posttax_deductions: PostTaxDeductions,
+    pub expenses: Expenses,
 }
 
 impl EmploymentScenario {
@@ -67,6 +68,7 @@ impl EmploymentScenario {
         filing_status: FilingStatus,
         pretax_deductions: PreTaxDeductions,
         posttax_deductions: PostTaxDeductions,
+        expenses: Expenses,
     ) -> Self {
         EmploymentScenario {
             hourly_rate,
@@ -74,6 +76,7 @@ impl EmploymentScenario {
             filing_status,
             pretax_deductions,
             posttax_deductions,
+            expenses,
         }
     }
 
@@ -112,7 +115,11 @@ impl EmploymentScenario {
     ///     45.0, // hours per week (bi-weekly paycheck = 90 hours [10 hours overtime])
     ///     FilingStatus::Single, // single filing status for standard deduction
     ///     pretax_deductions, // total = 525.0
-    ///     posttax_deductions // total = 130.0
+    ///     posttax_deductions, // total = 130.0
+    ///     Expenses::new(vec![
+    ///         Expense::Housing(Some(2000.0)),
+    ///         Expense::Energy(Some(300.0)),
+    ///     ]), // total = 2300.0
     /// );
     /// let net_paycheck = scenario.calculate_net_paycheck();
     /// assert_eq!(net_paycheck, 1440.33);
@@ -156,7 +163,69 @@ impl EmploymentScenario {
             gross_paycheck - federal_withholding - social_security - medicare - total_posttax,
         )
     }
+
+    /// Compares the total monthly expenses to the calculated monthly net income.
+    /// Returns a tuple containing the monthly net income, total monthly expenses, and the difference between the two.
+    /// # Example
+    /// ```
+    /// // This example uses the same data as the `calculate_net_paycheck` example to demonstrate the comparison.
+    /// 
+    /// use paycheck_utils::PostTaxDeduction;
+    /// use paycheck_utils::PreTaxDeduction;
+    /// use paycheck_utils::FilingStatus;
+    /// use paycheck_utils::EmploymentScenario;
+    /// use paycheck_utils::PreTaxDeductions;
+    /// use paycheck_utils::PostTaxDeductions;
+    /// use paycheck_utils::expenses::{Expense, Expenses};
+    ///
+    /// let pretax_deductions = PreTaxDeductions::new(vec![
+    ///     PreTaxDeduction::Medical(Some(100.0)),
+    ///     PreTaxDeduction::Dental(Some(50.0)),
+    ///     PreTaxDeduction::Vision(Some(25.0)),
+    ///     PreTaxDeduction::Traditional401K(Some(200.0)),
+    ///     PreTaxDeduction::HSA(Some(150.0)),
+    /// ]); // total = 525.0
+    /// let posttax_deductions = PostTaxDeductions::new(vec![
+    ///     PostTaxDeduction::Roth401K(Some(100.0)),
+    ///     PostTaxDeduction::VoluntaryLife(Some(30.0)),
+    /// ]); // total = 130.0
+    /// let expenses = Expenses::new(vec![
+    ///     Expense::Housing(Some(1500.0)),
+    ///     Expense::Energy(Some(200.0)),
+    ///     Expense::Water(Some(50.0)),
+    ///     Expense::Groceries(Some(400.0)),
+    ///     Expense::Phone(Some(80.0)),
+    ///     Expense::Internet(Some(60.0)),
+    /// ]); // total = 2290.0
+    /// let scenario = EmploymentScenario::new(
+    ///     25.0, // hourly rate
+    ///     45.0, // hours per week
+    ///     FilingStatus::Single, // filing status
+    ///     pretax_deductions,
+    ///     posttax_deductions,
+    ///     expenses,
+    /// );
+    /// let (monthly_net_income, total_monthly_expenses, difference) = scenario.compare_monthly_expenses_to_monthly_income();
+    /// assert_eq!(monthly_net_income, 2880.66);
+    /// assert_eq!(total_monthly_expenses, 2290.0);
+    /// assert_eq!(difference, 590.66);
+    /// ```
+    /// # Returns
+    /// A tuple containing:
+    /// - `f32`: Monthly net income
+    /// - `f32`: Total monthly expenses
+    /// - `f32`: Difference between monthly net income and total monthly expenses
+    pub fn compare_monthly_expenses_to_monthly_income(&self) -> (f32, f32, f32) {
+        let monthly_net_income = self.calculate_net_paycheck() * 2.0;
+        let total_monthly_expenses = self.expenses.total_monthly_expenses();
+        (
+            round_2_decimals(monthly_net_income), 
+            round_2_decimals(total_monthly_expenses), 
+            round_2_decimals(monthly_net_income - total_monthly_expenses)
+        )
+    }
 }
+
 
 // UNIT TEST FOR LIBRARY
 
@@ -176,7 +245,7 @@ mod tests {
             PostTaxDeduction::Roth401K(Some(100.0)),
             PostTaxDeduction::VoluntaryLife(Some(30.0)),
         ]);
-        let _expenses = Expenses::new(vec![
+        let expenses = Expenses::new(vec![
             Expense::Housing(Some(2000.0)),
             Expense::Energy(Some(200.0)),
             Expense::Water(Some(50.0)),
@@ -193,8 +262,44 @@ mod tests {
             FilingStatus::Single,
             pretax_deductions,
             posttax_deductions,
+            expenses,
         );
         let net_paycheck = scenario.calculate_net_paycheck();
         assert_eq!(net_paycheck, 1440.33);
+    }
+
+    #[test]
+    fn test_compare_monthly_expenses_to_monthly_income() {
+        let pretax_deductions = PreTaxDeductions::new(vec![
+            PreTaxDeduction::Medical(Some(100.0)),
+            PreTaxDeduction::Dental(Some(50.0)),
+            PreTaxDeduction::Vision(Some(25.0)),
+            PreTaxDeduction::Traditional401K(Some(200.0)),
+            PreTaxDeduction::HSA(Some(150.0)),
+        ]);
+        let posttax_deductions = PostTaxDeductions::new(vec![
+            PostTaxDeduction::Roth401K(Some(100.0)),
+            PostTaxDeduction::VoluntaryLife(Some(30.0)),
+        ]);
+        let expenses = Expenses::new(vec![
+            Expense::Housing(Some(1500.0)),
+            Expense::Energy(Some(200.0)),
+            Expense::Water(Some(50.0)),
+            Expense::Groceries(Some(400.0)),
+            Expense::Phone(Some(80.0)),
+            Expense::Internet(Some(60.0)),
+        ]);
+        let scenario = EmploymentScenario::new(
+            25.0,
+            45.0,
+            FilingStatus::Single,
+            pretax_deductions,
+            posttax_deductions,
+            expenses,
+        );
+        let (monthly_net_income, total_monthly_expenses, difference) = scenario.compare_monthly_expenses_to_monthly_income();
+        assert_eq!(monthly_net_income, 2880.66);
+        assert_eq!(total_monthly_expenses, 2290.0);
+        assert_eq!(difference, 590.66);
     }
 }
