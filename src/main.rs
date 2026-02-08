@@ -1,5 +1,6 @@
 use anyhow::Result;
 use clap::{Parser, Subcommand};
+use paycheck_utils::interaction::*;
 
 #[derive(Parser, Debug)]
 #[command(name = "check-paycheck")]
@@ -24,12 +25,14 @@ fn main() -> Result<()> {
     let cli = Cli::parse();
 
     match &cli.command {
-        Commands::Start => {
-
-            // Start the interactive dialogue to receive user input for employment scenario, deductions, and expenses
+        Commands::Start => { 
             
-            // Display all user inputs for confirmation
+            // Start the interactive dialogue to receive user input for employment scenario, deductions, and expenses
+            println!("\nCHECK-PAYCHECK CLI TOOL:\n\
+            A CLI tool for estimating paycheck net income and withholdings in order to compare against a given set of living expenses.\n");
 
+            get_user_input();
+            
             // Perform paycheck calculation based on confirmed inputs
 
             // Display the calculated paycheck details

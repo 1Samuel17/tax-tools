@@ -20,25 +20,21 @@ pub mod expenses;
 pub mod income;
 pub mod utils;
 pub mod withholdings;
+pub mod interaction;
 
 pub use crate::deductions::*;
 pub use crate::expenses::*;
 pub use crate::income::*;
 pub use crate::utils::*;
 pub use crate::withholdings::*;
+pub use crate::interaction::*;
 
 /// Represents an employment scenario with hourly rate, hours worked per week, filing status, and deductions.
 /// Possible deductions avaialable are defined in the `deductions` module.
 ///
 /// # Example
 /// ```
-/// use paycheck_utils::FilingStatus;
-/// use paycheck_utils::EmploymentScenario;
-/// use paycheck_utils::PreTaxDeductions;
-/// use paycheck_utils::PreTaxDeduction;
-/// use paycheck_utils::PostTaxDeductions;
-/// use paycheck_utils::PostTaxDeduction;
-/// use paycheck_utils::Expenses;
+/// use paycheck_utils::*;
 ///
 /// let new_job_scenario = EmploymentScenario::new(
 ///     30.0, // hourly rate
@@ -94,14 +90,7 @@ impl EmploymentScenario {
     ///
     /// # Example
     /// ```
-    /// use paycheck_utils::PostTaxDeduction;
-    /// use paycheck_utils::PreTaxDeduction;
-    /// use paycheck_utils::FilingStatus;
-    /// use paycheck_utils::EmploymentScenario;
-    /// use paycheck_utils::PreTaxDeductions;
-    /// use paycheck_utils::PostTaxDeductions;
-    /// use paycheck_utils::Expenses;
-    /// use paycheck_utils::Expense;
+    /// use paycheck_utils::*;
     ///
     /// let pretax_deductions = PreTaxDeductions::new(vec![
     ///     PreTaxDeduction::Medical(Some(100.0)),
@@ -174,14 +163,7 @@ impl EmploymentScenario {
     /// ```
     /// // This example uses the same data as the `calculate_net_paycheck` example to demonstrate the comparison.
     /// 
-    /// use paycheck_utils::PostTaxDeduction;
-    /// use paycheck_utils::PreTaxDeduction;
-    /// use paycheck_utils::FilingStatus;
-    /// use paycheck_utils::EmploymentScenario;
-    /// use paycheck_utils::PreTaxDeductions;
-    /// use paycheck_utils::PostTaxDeductions;
-    /// use paycheck_utils::Expense;
-    /// use paycheck_utils::Expenses;
+    /// use paycheck_utils::*;
     ///
     /// let pretax_deductions = PreTaxDeductions::new(vec![
     ///     PreTaxDeduction::Medical(Some(100.0)),
