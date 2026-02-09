@@ -14,8 +14,6 @@
 //! - `constants`: Contains tax and time related constants necessary for calculations.
 //! - `interaction`: Contains functions for interacting with the user to receive input for employment scenario.
 //! - `utils`: Contains utility functions for rounding and formatting output.
-//!
-//! A CLI will be implemented in a future version to allow a user to input their hourly wage, hours worked, filing status, deductions and expenses to see their estimated net paycheck and other relevant financial metrics.
 
 pub mod constants;
 pub mod deductions;
