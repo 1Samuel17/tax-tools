@@ -1,7 +1,7 @@
 # Paycheck-Utils
 ---
 
-(a work in progress)
+(a work in progress -> there may be errors)
 
 - This project is an exercise in developing a personal Rust utility library with useful functions for managing paycheck income.
 - It is the final assignment for the course "[Rust Fundamentals](https://www.coursera.org/learn/rust-fundamentals)" taught by [Alfredo Deza](https://www.linkedin.com/in/alfredodeza/) representing Duke University on the Coursera learning platform.
