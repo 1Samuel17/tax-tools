@@ -3,12 +3,16 @@ name = "paycheck-utils"
 version = "0.2.0"
 authors = ["Samuel Diaz"]
 edition = "2024"
-description = "A library that contains utility functions for estimating paycheck withholdings and net income in order to compare against a given set of living expenses"
+description = "A CLI tool for estimating paycheck withholdings and net income. Can also be used as a library."
 license = "MIT"
 
 [[bin]]
 name = "check-paycheck"
 path = "src/main.rs"
+
+[features]
+default = []
+lib = []
 
 [dependencies]
 anyhow = "1.0.101"
