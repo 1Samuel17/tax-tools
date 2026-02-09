@@ -23,7 +23,10 @@ pub fn round_2_decimals(value: f32) -> f32 {
 use std::any::{Any, TypeId};
 use std::str::FromStr;
 
-pub fn check_converted_value<T: Any + FromStr>(result: &Result<T, T::Err>, expected_type: TypeId) -> bool {
+pub fn check_converted_value<T: Any + FromStr>(
+    result: &Result<T, T::Err>,
+    expected_type: TypeId,
+) -> bool {
     match result {
         Ok(value) => value.type_id() == expected_type,
         Err(_) => false,
@@ -50,5 +53,3 @@ mod tests {
         assert!(!check_converted_value(&result_err, TypeId::of::<f32>()));
     }
 }
-
-

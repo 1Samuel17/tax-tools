@@ -1,35 +1,38 @@
+use crate::utils::check_converted_value;
+use crate::{
+    EmploymentScenario, Expense, Expenses, PostTaxDeduction, PostTaxDeductions, PreTaxDeduction,
+    PreTaxDeductions,
+};
+use std::any::TypeId;
+use std::collections::HashMap;
+use std::io;
 /// module for user interaction
 /// handles input and output with the user
 /// includes functions for displaying prompts, receiving input, and showing results
 use std::io::prelude::*;
-use std::io;
-use std::collections::HashMap;
-use crate::{    
-    EmploymentScenario, 
-    Expense, 
-    Expenses, 
-    PreTaxDeduction, 
-    PreTaxDeductions, 
-    PostTaxDeduction, 
-    PostTaxDeductions};
-use crate::utils::check_converted_value;
-use std::any::TypeId;
-
 
 pub fn get_user_input() -> EmploymentScenario {
-
-    println!("\n{:^100}", "--- Let's start by gathering some information. ---");
+    println!(
+        "\n{:^100}",
+        "--- Let's start by gathering some information. ---"
+    );
 
     // get employment scenario input
     println!("\nFirst, let's create an employment scenario.\n");
     let scenario = create_scenario();
 
     // get expenses input
-    println!("\n{:^100}", "--- Great!, now let's create some expenses. ---");
+    println!(
+        "\n{:^100}",
+        "--- Great!, now let's create some expenses. ---"
+    );
     let expenses = get_expenses();
 
     // get deductions input
-    println!("\n{:^100}", "--- Finally, let's create some deductions. ---");
+    println!(
+        "\n{:^100}",
+        "--- Finally, let's create some deductions. ---"
+    );
     let deductions = get_deductions();
 
     // // confirm inputs with user
@@ -38,17 +41,13 @@ pub fn get_user_input() -> EmploymentScenario {
 
     // create employment scenario struct
     convert_inputs_to_struct(scenario, expenses, deductions)
-    
 }
 
 fn create_scenario() -> HashMap<String, String> {
     // create holding variables
     let mut inputs: HashMap<String, String> = HashMap::new();
     let mut input = String::new();
-    let employed = [
-        "Rate",
-        "Hours",
-    ];
+    let employed = ["Rate", "Hours"];
 
     for value in employed {
         print!("{value}: ");
@@ -58,25 +57,28 @@ fn create_scenario() -> HashMap<String, String> {
             if check_converted_value(&input.trim().parse::<f32>(), TypeId::of::<f32>()) {
                 break;
             } else {
-                print!("Please enter a valid number for {value} (examples: 25, 25.5, or 25.00) --> {value}: ");
+                print!(
+                    "Please enter a valid number for {value} (examples: 25, 25.5, or 25.00) --> {value}: "
+                );
                 input.clear();
                 io::stdout().flush().unwrap_or_default();
                 io::stdin().read_line(&mut input).unwrap_or_default();
             }
         }
-        inputs.entry(value.trim().to_string()).or_insert(input.trim().to_string());
+        inputs
+            .entry(value.trim().to_string())
+            .or_insert(input.trim().to_string());
         input.clear();
     }
 
     inputs
-
 }
 
 fn get_expenses() -> HashMap<String, String> {
     let mut inputs: HashMap<String, String> = HashMap::new();
     let mut input = String::new();
     let expense_categories = [
-        "Housing", 
+        "Housing",
         "Energy",
         "Water",
         "Gas",
@@ -86,7 +88,7 @@ fn get_expenses() -> HashMap<String, String> {
         "Car Insurance",
         "Car Gas",
         "Groceries",
-        ];
+    ];
 
     println!("\nLiving expenses can vary so enter an estimated amount per month or 0.\n");
 
@@ -98,25 +100,28 @@ fn get_expenses() -> HashMap<String, String> {
             if check_converted_value(&input.trim().parse::<f32>(), TypeId::of::<f32>()) {
                 break;
             } else {
-                print!("Please enter a valid number for {exp} (examples: 25, 25.5, or 25.00) --> {exp}: ");
+                print!(
+                    "Please enter a valid number for {exp} (examples: 25, 25.5, or 25.00) --> {exp}: "
+                );
                 input.clear();
                 io::stdout().flush().unwrap_or_default();
                 io::stdin().read_line(&mut input).unwrap_or_default();
             }
         }
-        inputs.entry(exp.trim().to_string()).or_insert(input.trim().to_string());
+        inputs
+            .entry(exp.trim().to_string())
+            .or_insert(input.trim().to_string());
         input.clear();
     }
 
     inputs
-
 }
 
 fn get_deductions() -> HashMap<String, String> {
     let mut inputs: HashMap<String, String> = HashMap::new();
     let mut input = String::new();
     let pretax_categories = [
-        "Medical", 
+        "Medical",
         "Dental",
         "Vision",
         "Traditional401K",
@@ -132,7 +137,9 @@ fn get_deductions() -> HashMap<String, String> {
         "Wage Garnishment",
     ];
 
-    println!("\nDeductions come in two flavors: pre-tax and post-tax.\nLet's start with the pre-tax deductions.\n");
+    println!(
+        "\nDeductions come in two flavors: pre-tax and post-tax.\nLet's start with the pre-tax deductions.\n"
+    );
 
     for pre in pretax_categories {
         print!("{pre}: ");
@@ -142,13 +149,17 @@ fn get_deductions() -> HashMap<String, String> {
             if check_converted_value(&input.trim().parse::<f32>(), TypeId::of::<f32>()) {
                 break;
             } else {
-                print!("Please enter a valid number for {pre} (examples: 25, 25.5, or 25.00) --> {pre}: ");
+                print!(
+                    "Please enter a valid number for {pre} (examples: 25, 25.5, or 25.00) --> {pre}: "
+                );
                 input.clear();
                 io::stdout().flush().unwrap_or_default();
                 io::stdin().read_line(&mut input).unwrap_or_default();
             }
         }
-        inputs.entry(pre.trim().to_string()).or_insert(input.trim().to_string());
+        inputs
+            .entry(pre.trim().to_string())
+            .or_insert(input.trim().to_string());
         input.clear();
     }
 
@@ -162,18 +173,21 @@ fn get_deductions() -> HashMap<String, String> {
             if check_converted_value(&input.trim().parse::<f32>(), TypeId::of::<f32>()) {
                 break;
             } else {
-                print!("Please enter a valid number for {post} (examples: 25, 25.5, or 25.00) --> {post}: ");
+                print!(
+                    "Please enter a valid number for {post} (examples: 25, 25.5, or 25.00) --> {post}: "
+                );
                 input.clear();
                 io::stdout().flush().unwrap_or_default();
                 io::stdin().read_line(&mut input).unwrap_or_default();
             }
         }
-        inputs.entry(post.trim().to_string()).or_insert(input.trim().to_string());
+        inputs
+            .entry(post.trim().to_string())
+            .or_insert(input.trim().to_string());
         input.clear();
     }
 
     inputs
-
 }
 
 // fn confirm_inputs(
@@ -220,40 +234,41 @@ fn get_deductions() -> HashMap<String, String> {
 // }
 
 pub fn convert_inputs_to_struct(
-    sc: HashMap<String,String>, 
-    ex: HashMap<String,String>, 
-    de: HashMap<String,String>) -> EmploymentScenario {
-        let mut scene = EmploymentScenario::default();
-        scene.hourly_rate = sc["Rate"].parse::<f32>().unwrap_or_default();
-        scene.hours_per_week = sc["Hours"].parse::<f32>().unwrap_or_default();
-        scene.expenses = Expenses::new(vec![
-            Expense::Housing(ex["Housing"].parse::<f32>().ok()),
-            Expense::Energy(ex["Energy"].parse::<f32>().ok()),
-            Expense::Water(ex["Water"].parse::<f32>().ok()),
-            Expense::Gas(ex["Gas"].parse::<f32>().ok()),
-            Expense::Internet(ex["Internet"].parse::<f32>().ok()),
-            Expense::Phone(ex["Phone"].parse::<f32>().ok()),
-            Expense::Vehicle(ex["Car Payment"].parse::<f32>().ok()),
-            Expense::VehicleInsurance(ex["Car Insurance"].parse::<f32>().ok()),
-            Expense::VehicleGas(ex["Car Gas"].parse::<f32>().ok()),
-            Expense::Groceries(ex["Groceries"].parse::<f32>().ok()),
-        ]);
-        scene.pretax_deductions = PreTaxDeductions::new(vec![
-            PreTaxDeduction::Medical(de["Medical"].parse::<f32>().ok()),
-            PreTaxDeduction::Dental(de["Dental"].parse::<f32>().ok()),
-            PreTaxDeduction::Vision(de["Vision"].parse::<f32>().ok()),
-            PreTaxDeduction::Traditional401K(de["Traditional401K"].parse::<f32>().ok()),
-            PreTaxDeduction::HSA(de["HSA"].parse::<f32>().ok()),
-            PreTaxDeduction::FSA(de["FSA"].parse::<f32>().ok()),
-        ]);
-        scene.posttax_deductions = PostTaxDeductions::new(vec![
-            PostTaxDeduction::Roth401K(de["Roth401K"].parse::<f32>().ok()),
-            PostTaxDeduction::VoluntaryLife(de["Voluntary Life"].parse::<f32>().ok()),
-            PostTaxDeduction::VoluntaryADD(de["Voluntary ADD"].parse::<f32>().ok()),
-            PostTaxDeduction::VoluntarySTD(de["Voluntary STD"].parse::<f32>().ok()),
-            PostTaxDeduction::VoluntaryLTD(de["Voluntary LTD"].parse::<f32>().ok()),
-            PostTaxDeduction::WageGarnishment(de["Wage Garnishment"].parse::<f32>().ok()),
-        ]);
-        
-        scene
+    sc: HashMap<String, String>,
+    ex: HashMap<String, String>,
+    de: HashMap<String, String>,
+) -> EmploymentScenario {
+    let mut scene = EmploymentScenario::default();
+    scene.hourly_rate = sc["Rate"].parse::<f32>().unwrap_or_default();
+    scene.hours_per_week = sc["Hours"].parse::<f32>().unwrap_or_default();
+    scene.expenses = Expenses::new(vec![
+        Expense::Housing(ex["Housing"].parse::<f32>().ok()),
+        Expense::Energy(ex["Energy"].parse::<f32>().ok()),
+        Expense::Water(ex["Water"].parse::<f32>().ok()),
+        Expense::Gas(ex["Gas"].parse::<f32>().ok()),
+        Expense::Internet(ex["Internet"].parse::<f32>().ok()),
+        Expense::Phone(ex["Phone"].parse::<f32>().ok()),
+        Expense::Vehicle(ex["Car Payment"].parse::<f32>().ok()),
+        Expense::VehicleInsurance(ex["Car Insurance"].parse::<f32>().ok()),
+        Expense::VehicleGas(ex["Car Gas"].parse::<f32>().ok()),
+        Expense::Groceries(ex["Groceries"].parse::<f32>().ok()),
+    ]);
+    scene.pretax_deductions = PreTaxDeductions::new(vec![
+        PreTaxDeduction::Medical(de["Medical"].parse::<f32>().ok()),
+        PreTaxDeduction::Dental(de["Dental"].parse::<f32>().ok()),
+        PreTaxDeduction::Vision(de["Vision"].parse::<f32>().ok()),
+        PreTaxDeduction::Traditional401K(de["Traditional401K"].parse::<f32>().ok()),
+        PreTaxDeduction::HSA(de["HSA"].parse::<f32>().ok()),
+        PreTaxDeduction::FSA(de["FSA"].parse::<f32>().ok()),
+    ]);
+    scene.posttax_deductions = PostTaxDeductions::new(vec![
+        PostTaxDeduction::Roth401K(de["Roth401K"].parse::<f32>().ok()),
+        PostTaxDeduction::VoluntaryLife(de["Voluntary Life"].parse::<f32>().ok()),
+        PostTaxDeduction::VoluntaryADD(de["Voluntary ADD"].parse::<f32>().ok()),
+        PostTaxDeduction::VoluntarySTD(de["Voluntary STD"].parse::<f32>().ok()),
+        PostTaxDeduction::VoluntaryLTD(de["Voluntary LTD"].parse::<f32>().ok()),
+        PostTaxDeduction::WageGarnishment(de["Wage Garnishment"].parse::<f32>().ok()),
+    ]);
+
+    scene
 }

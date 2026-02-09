@@ -7,7 +7,7 @@
 - It is the final assignment for the course "[Rust Fundamentals](https://www.coursera.org/learn/rust-fundamentals)" taught by [Alfredo Deza](https://www.linkedin.com/in/alfredodeza/) representing Duke University on the Coursera learning platform.
 - The assignment instructions are as follows:
 
-> ### External Lab: Create a Rust library
+> ### External Lab: Create a Rust library (NOTE: A CLI TOOL HAS BEEN ADDED TO THIS PROJECT)
 
 In this lab, you will create a library in Rust to reinforce the concepts covered in the last lesson. You can choose one of the following library ideas, or you are free to create one on your own. You will add code to the lib.rs file, document your code, and utilize tools like Makefile and Cargo. The end result will be a GitHub repository containing the complete code for your chosen library.
 

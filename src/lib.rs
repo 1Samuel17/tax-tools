@@ -17,21 +17,21 @@
 //!
 //! A CLI will be implemented in a future version to allow a user to input their hourly wage, hours worked, filing status, deductions and expenses to see their estimated net paycheck and other relevant financial metrics.
 
+pub mod constants;
 pub mod deductions;
 pub mod expenses;
 pub mod income;
-pub mod constants;
-pub mod withholdings;
 pub mod interaction;
 pub mod utils;
+pub mod withholdings;
 
+pub use crate::constants::*;
 pub use crate::deductions::*;
 pub use crate::expenses::*;
 pub use crate::income::*;
-pub use crate::constants::*;
-pub use crate::withholdings::*;
 pub use crate::interaction::*;
 pub use crate::utils::*;
+pub use crate::withholdings::*;
 
 /// Represents an employment scenario with hourly rate, hours worked per week, filing status, and deductions.
 /// Possible deductions avaialable are defined in the `deductions` module.
@@ -54,7 +54,7 @@ pub use crate::utils::*;
 ///     Expenses::new(vec![]) // expenses
 /// );
 /// ```
-/// 
+///
 #[derive(Default, Debug)]
 pub struct EmploymentScenario {
     pub hourly_rate: f32,
@@ -168,7 +168,7 @@ impl EmploymentScenario {
     /// # Example
     /// ```
     /// // This example uses the same data as the `calculate_net_paycheck` example to demonstrate the comparison.
-    /// 
+    ///
     /// use paycheck_utils::*;
     ///
     /// let pretax_deductions = PreTaxDeductions::new(vec![
@@ -212,13 +212,12 @@ impl EmploymentScenario {
         let monthly_net_income = self.calculate_net_paycheck() * 2.0;
         let total_monthly_expenses = self.expenses.total_monthly_expenses();
         (
-            round_2_decimals(monthly_net_income), 
-            round_2_decimals(total_monthly_expenses), 
-            round_2_decimals(monthly_net_income - total_monthly_expenses)
+            round_2_decimals(monthly_net_income),
+            round_2_decimals(total_monthly_expenses),
+            round_2_decimals(monthly_net_income - total_monthly_expenses),
         )
     }
 }
-
 
 // UNIT TEST FOR LIBRARY
 
@@ -290,7 +289,8 @@ mod tests {
             posttax_deductions,
             expenses,
         );
-        let (monthly_net_income, total_monthly_expenses, difference) = scenario.compare_monthly_expenses_to_monthly_income();
+        let (monthly_net_income, total_monthly_expenses, difference) =
+            scenario.compare_monthly_expenses_to_monthly_income();
         assert_eq!(monthly_net_income, 2880.66);
         assert_eq!(total_monthly_expenses, 2290.0);
         assert_eq!(difference, 590.66);

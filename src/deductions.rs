@@ -2,7 +2,7 @@
 //! Defines structures and functions for managing pre-tax and post-tax deductions.
 
 /// Pre-tax deductions are applied before federal tax calculations.
-/// 
+///
 #[derive(Debug)]
 pub enum PreTaxDeduction {
     Medical(Option<f32>),
