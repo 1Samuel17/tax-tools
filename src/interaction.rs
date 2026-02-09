@@ -4,11 +4,19 @@
 use std::io::prelude::*;
 use std::io;
 use std::collections::HashMap;
+use crate::{    
+    EmploymentScenario, 
+    Expense, 
+    Expenses, 
+    PreTaxDeduction, 
+    PreTaxDeductions, 
+    PostTaxDeduction, 
+    PostTaxDeductions};
 use crate::utils::check_converted_value;
 use std::any::TypeId;
 
 
-pub fn get_user_input() {
+pub fn get_user_input() -> EmploymentScenario {
 
     println!("\n{:^100}", "--- Let's start by gathering some information. ---");
 
@@ -16,17 +24,21 @@ pub fn get_user_input() {
     println!("\nFirst, let's create an employment scenario.\n");
     let scenario = create_scenario();
 
-    //get expenses input
+    // get expenses input
     println!("\n{:^100}", "--- Great!, now let's create some expenses. ---");
     let expenses = get_expenses();
 
-    // //get deductions input
+    // get deductions input
     println!("\n{:^100}", "--- Finally, let's create some deductions. ---");
     let deductions = get_deductions();
 
     // // confirm inputs with user
-    println!("\n{:^100}", "--- Great! Let's make sure everything looks correct. ---");
-    confirm_inputs(scenario, expenses, deductions);
+    // println!("\n{:^100}", "--- Great! Let's make sure everything looks correct. ---");
+    // confirm_inputs(&scenario, &expenses, &deductions);
+
+    // create employment scenario struct
+    convert_inputs_to_struct(scenario, expenses, deductions)
+    
 }
 
 fn create_scenario() -> HashMap<String, String> {
@@ -164,45 +176,84 @@ fn get_deductions() -> HashMap<String, String> {
 
 }
 
-fn confirm_inputs(
-    scenario: HashMap<String, String>,
-    expenses: HashMap<String, String>,
-    deductions: HashMap<String, String>,
-) {
-    let mut input = String::new();
+// fn confirm_inputs(
+//     scenario: &HashMap<String, String>,
+//     expenses: &HashMap<String, String>,
+//     deductions: &HashMap<String, String>,
+// ) {
+//     let mut input = String::new();
 
-    println!("\nHere is the scenario we just created:\n");
+//     println!("\nHere is the scenario we just created:\n");
 
-    println!("EMPLOYMENT SCENARIO:\n");
+//     println!("EMPLOYMENT SCENARIO:\n");
 
-    for (k, v) in scenario.iter() {
-        println!("{}: {}", k, v);
-    }
+//     for (k, v) in scenario.iter() {
+//         println!("{}: {}", k, v);
+//     }
 
-    println!("\nDoes this look good (y/n)?: {}", input);
-    io::stdin().read_line(&mut input.trim().to_string()).unwrap_or_default();
-    input.clear();
+//     println!("\nDoes this look good (y/n)?: {}", input);
+//     io::stdin().read_line(&mut input.trim().to_string()).unwrap_or_default();
+//     input.clear();
 
-    println!("\nEXPENSES:\n");
+//     println!("\nEXPENSES:\n");
 
-    for (k,v) in expenses.iter() {
-        println!("{}: {}", k, v);
-    }
+//     for (k,v) in expenses.iter() {
+//         println!("{}: {}", k, v);
+//     }
 
-    println!("\nDoes this look good (y/n)?: {}", input);
-    io::stdin().read_line(&mut input.trim().to_string()).unwrap_or_default();
-    input.clear();
+//     println!("\nDoes this look good (y/n)?: {}", input);
+//     io::stdin().read_line(&mut input.trim().to_string()).unwrap_or_default();
+//     input.clear();
 
-    println!("\nDEDUCTIONS:\n");
+//     println!("\nDEDUCTIONS:\n");
 
-    for (k,v) in deductions.iter() {
-        println!("{}: {}", k, v);
-    }
+//     for (k,v) in deductions.iter() {
+//         println!("{}: {}", k, v);
+//     }
 
-    println!("\nDoes this look good (y/n)?: {}", input);
-    io::stdin().read_line(&mut input.trim().to_string()).unwrap_or_default();
-    input.clear();
+//     println!("\nDoes this look good (y/n)?: {}", input);
+//     io::stdin().read_line(&mut input.trim().to_string()).unwrap_or_default();
+//     input.clear();
 
-    println!("\n{:^100}", "--- Great! Let's run the numbers! ---");
+//     println!("\n{:^100}", "--- Great! Let's run the numbers! ---");
 
+// }
+
+pub fn convert_inputs_to_struct(
+    sc: HashMap<String,String>, 
+    ex: HashMap<String,String>, 
+    de: HashMap<String,String>) -> EmploymentScenario {
+        let mut scene = EmploymentScenario::default();
+        scene.hourly_rate = sc["Rate"].parse::<f32>().unwrap_or_default();
+        scene.hours_per_week = sc["Hours"].parse::<f32>().unwrap_or_default();
+        scene.expenses = Expenses::new(vec![
+            Expense::Housing(ex["Housing"].parse::<f32>().ok()),
+            Expense::Energy(ex["Energy"].parse::<f32>().ok()),
+            Expense::Water(ex["Water"].parse::<f32>().ok()),
+            Expense::Gas(ex["Gas"].parse::<f32>().ok()),
+            Expense::Internet(ex["Internet"].parse::<f32>().ok()),
+            Expense::Phone(ex["Phone"].parse::<f32>().ok()),
+            Expense::Vehicle(ex["Car Payment"].parse::<f32>().ok()),
+            Expense::VehicleInsurance(ex["Car Insurance"].parse::<f32>().ok()),
+            Expense::VehicleGas(ex["Car Gas"].parse::<f32>().ok()),
+            Expense::Groceries(ex["Groceries"].parse::<f32>().ok()),
+        ]);
+        scene.pretax_deductions = PreTaxDeductions::new(vec![
+            PreTaxDeduction::Medical(de["Medical"].parse::<f32>().ok()),
+            PreTaxDeduction::Dental(de["Dental"].parse::<f32>().ok()),
+            PreTaxDeduction::Vision(de["Vision"].parse::<f32>().ok()),
+            PreTaxDeduction::Traditional401K(de["Traditional401K"].parse::<f32>().ok()),
+            PreTaxDeduction::HSA(de["HSA"].parse::<f32>().ok()),
+            PreTaxDeduction::FSA(de["FSA"].parse::<f32>().ok()),
+        ]);
+        scene.posttax_deductions = PostTaxDeductions::new(vec![
+            PostTaxDeduction::Roth401K(de["Roth401K"].parse::<f32>().ok()),
+            PostTaxDeduction::VoluntaryLife(de["Voluntary Life"].parse::<f32>().ok()),
+            PostTaxDeduction::VoluntaryADD(de["Voluntary ADD"].parse::<f32>().ok()),
+            PostTaxDeduction::VoluntarySTD(de["Voluntary STD"].parse::<f32>().ok()),
+            PostTaxDeduction::VoluntaryLTD(de["Voluntary LTD"].parse::<f32>().ok()),
+            PostTaxDeduction::WageGarnishment(de["Wage Garnishment"].parse::<f32>().ok()),
+        ]);
+        
+        scene
 }

@@ -15,6 +15,7 @@
 /// * `VehicleInsurance(Option<f32>)` - Monthly vehicle insurance expense
 /// * `VehicleGas(Option<f32>)` - Monthly vehicle gas expense
 /// * `Groceries(Option<f32>)` - Monthly groceries expense
+#[derive(Debug)]
 pub enum Expense {
     Housing(Option<f32>),          // monthly rent or mortgage expense
     Energy(Option<f32>),           // monthly energy expense
@@ -53,6 +54,8 @@ pub enum Expense {
 /// let total = expenses.total_monthly_expenses();
 /// assert_eq!(total, 3210.0);
 /// ```
+
+#[derive(Default, Debug)]
 pub struct Expenses {
     pub expense_items: Vec<Expense>,
 }

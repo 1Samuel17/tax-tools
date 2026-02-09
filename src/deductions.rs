@@ -2,6 +2,8 @@
 //! Defines structures and functions for managing pre-tax and post-tax deductions.
 
 /// Pre-tax deductions are applied before federal tax calculations.
+/// 
+#[derive(Debug)]
 pub enum PreTaxDeduction {
     Medical(Option<f32>),
     Dental(Option<f32>),
@@ -12,6 +14,7 @@ pub enum PreTaxDeduction {
 }
 
 /// Post-tax deductions are applied after federal tax calculations
+#[derive(Debug)]
 pub enum PostTaxDeduction {
     Roth401K(Option<f32>),
     VoluntaryLife(Option<f32>),
@@ -22,11 +25,13 @@ pub enum PostTaxDeduction {
 }
 
 /// Struct to manage a collection of pre-tax deductions
+#[derive(Default, Debug)]
 pub struct PreTaxDeductions {
     pretax_deductions: Vec<PreTaxDeduction>,
 }
 
 /// Struct to manage a collection of post-tax deductions
+#[derive(Default, Debug)]
 pub struct PostTaxDeductions {
     posttax_deductions: Vec<PostTaxDeduction>,
 }
@@ -38,7 +43,6 @@ impl PreTaxDeductions {
             pretax_deductions: deductions,
         }
     }
-
     /// Add multiple pre-tax deductions to the collection
     pub fn add_pretax_deductions(&mut self, deductions: Vec<PreTaxDeduction>) {
         self.pretax_deductions.extend(deductions);

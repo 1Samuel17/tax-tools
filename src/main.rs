@@ -34,9 +34,17 @@ fn main() -> Result<()> {
             println!("{:^100}", "in order to compare against a given set of living expenses.");
             println!("\n{:-^100}","-");
 
-            get_user_input();
+            // create a scenario from user inputs
+            let scenario = get_user_input();
             
             // Perform paycheck calculation based on confirmed inputs
+            let net_paycheck = scenario.calculate_net_paycheck();
+            let comparison = scenario.compare_monthly_expenses_to_monthly_income();
+
+            println!("\n{:^100}", "--- Paycheck Calculation Results ---");
+            println!("\nWeekly Net Paycheck: ${:.2}", net_paycheck);
+            println!("\nMonthly Income vs Expenses -> Monthly Net Income: {:?}, Total Monthly Expenses: {:?}, Difference: {:?}\n", comparison.0, comparison.1, comparison.2);
+
 
             // Display the calculated paycheck details
 

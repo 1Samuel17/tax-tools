@@ -54,6 +54,8 @@ pub use crate::utils::*;
 ///     Expenses::new(vec![]) // expenses
 /// );
 /// ```
+/// 
+#[derive(Default, Debug)]
 pub struct EmploymentScenario {
     pub hourly_rate: f32,
     pub hours_per_week: f32,
