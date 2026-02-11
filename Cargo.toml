@@ -3,7 +3,7 @@ name = "paycheck-utils"
 version = "0.2.6"
 authors = ["Samuel Diaz"]
 edition = "2024"
-description = "A small library and cli tool for estimating net paycheck after withholdings and deductions to compare against a given set of expenses.
+description = "A small library and cli tool for estimating net paycheck after withholdings and deductions to compare against a given set of expenses."
 license = "MIT"
 
 [[bin]]
